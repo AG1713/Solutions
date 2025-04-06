@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar">
+            <div class="nav-title">KrakenVault</div>
+            <ul class="nav-links">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="#">Piracy Detection</a></li>
+                <!-- <li><a href="#">About</a></li> -->
+                <!-- <li><a href="#">Contact</a></li> -->
+                <li><button id="logout-btn" class="logout-button">Logout</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <main style="padding-top: 15vh;">
+        <div id="search-page" class="page hidden">
+            <div class="container">
+                <div class="search-card">
+                    <div class="progress-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="youtube-icon">
+                            <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+                            <path d="m10 15 5-3-5-3z"/>
+                        </svg>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                
+                    <h2>Scanning YouTube Content</h2>
+                    <p class="status-text">
+                        Our AI is analyzing videos for potential deepfakes and unauthorized content...
+                    </p>
+                
+                    <div class="results-section">
+                        <h3>Detected Content</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Video</th>
+                                        <th>Classification</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-table">
+                                    <!-- Results will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <!-- Review Section -->
+        <div id="review-section" class="page hidden" style="padding-top: 2rem;">
+            <div class="container">
+              <h2>Review Video</h2>
+              <p id="review-video-title" style="font-weight: bold; margin-bottom: 1rem;"></p>
+            
+              <label for="sender-email">Your Email (Sender):</label>
+              <input type="email" id="sender-email" placeholder="Your Email" style="width: 100%; margin-bottom: 1rem; padding: 0.5rem;" />
+            
+              <label for="receiver-email">Receiver Email:</label>
+              <input type="email" id="receiver-email" placeholder="Receiver Email" style="width: 100%; margin-bottom: 1rem; padding: 0.5rem;" />
+            
+              <button id="generate-email-button" class="primary-button" style="margin-bottom: 1rem;">Generate Email</button>
+            
+              <!-- This container is hidden until the Generate Email button is clicked -->
+              <div id="email-content-container" class="hidden">
+                <textarea id="review-email-content" rows="8" style="width: 100%; margin-bottom: 1rem; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;"></textarea>
+                <button id="send-email-button" class="primary-button">Send</button>
+              </div>
+            </div>
+        </div>
+    
+        <script src="/static/main_script.js"></script>
+        <!-- Firebase SDKs -->
+        <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+        <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyCw6JFre8IzjlcLfTWPHZaXMlHkG6FipG0",
+          authDomain: "xenova-ea917.firebaseapp.com",
+          projectId: "xenova-ea917",
+          storageBucket: "xenova-ea917.appspot.com",
+          messagingSenderId: "1022603031826",
+          appId: "1:1022603031826:web:1bc079bf02a826d384efcb",
+          measurementId: "G-7SRT77X37X"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        // Wait for the DOM to load before adding event listener
+        document.addEventListener("DOMContentLoaded", function () {
+          const logoutBtn = document.getElementById("logout-btn");
+          if (logoutBtn) {
+            logoutBtn.addEventListener("click", function () {
+              firebase.auth().signOut()
+                .then(() => {
+                  console.log("User signed out");
+                  window.location.href = "/";  // redirect after logout
+                })
+                .catch((error) => {
+                  console.error("Sign-out error:", error);
+                });
+            });
+          } else {
+            console.error("Logout button not found.");
+          }
+        });
+
+        </script>
+    </main>
+    
+</body>
+</html>

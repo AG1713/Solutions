@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Firebase Login</title>
+  {% load static %}
+  <style>
+    :root {
+      --gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --text-color: #2d3748;
+      --bg-color: #f0f4f8;
+      --btn-shadow: rgba(0, 0, 0, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .card {
+      background: white;
+      padding: 3rem 2rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 10px 25px var(--btn-shadow);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .card h2 {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .google-btn {
+      padding: 0.75rem 1.5rem;
+      background: var(--gradient);
+      border: none;
+      border-radius: 9999px;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 6px 12px var(--btn-shadow);
+    }
+
+    .google-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .google-btn:active {
+      transform: scale(0.95);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Login to KrakenVault</h2>
+    <button class="google-btn" onclick="signInWithGoogle()">Sign in with Google</button>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCw6JFre8IzjlcLfTWPHZaXMlHkG6FipG0",
+      authDomain: "xenova-ea917.firebaseapp.com",
+      projectId: "xenova-ea917",
+      storageBucket: "xenova-ea917.appspot.com",
+      messagingSenderId: "1022603031826",
+      appId: "1:1022603031826:web:1bc079bf02a826d384efcb",
+      measurementId: "G-7SRT77X37X"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    function signInWithGoogle() {
+      firebase.auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          const user = result.user;
+          console.log("Logged in as:", user.displayName);
+          window.location.href = "/home";
+        })
+        .catch((error) => {
+          console.error("Login failed:", error);
+        });
+    }
+  </script>
+</body>
+</html>
