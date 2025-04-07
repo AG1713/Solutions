@@ -116,4 +116,4 @@ KrakenVault is an AI-powered platform designed to **detect**, **analyze**, and *
 ## 🧿 Logo
 
 ```markdown
-![KrakenVault Logo](./logo.png)
+![KrakenVault Logo](./Logo.png)
