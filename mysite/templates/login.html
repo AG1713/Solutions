@@ -78,7 +78,12 @@
 <body>
   <div class="card">
     <h2>Login to KrakenVault</h2>
-    <button class="google-btn" onclick="signInWithGoogle()">Sign in with Google</button>
+    <div style= "margin-bottom: 1rem;">
+      <button class="google-btn" onclick="signInWithGoogle()">Sign in with Google</button>
+    </div>
+    <div>
+      <button class="google-btn" onclick="dummyLogin()">One Click Dummy login for evaluators</button>
+    </div>
   </div>
 
   <!-- Firebase SDKs -->
@@ -111,6 +116,10 @@
           console.error("Login failed:", error);
         });
     }
+
+    function dummyLogin() {
+          window.location.href = "/home";
+        }
   </script>
 </body>
 </html>
